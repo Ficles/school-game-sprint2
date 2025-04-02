@@ -11,13 +11,14 @@ class Screen():
         image = pygame.image.load(image_path)
         self.sprites[name] = image
 
-    def show_sprite(self, name, pos):
+    def draw_sprite(self, name, pos, angle):
         image = self.sprites[name]
-        blit_pos = (0, 0)
-        blit_pos[0] = pos[0] + (image.get_width() / 2)
-        blit_pos[1] = pos[1] + (image.get_height()/ 2)
-        self.screen.blit(image, blit_pos)
+        rotated_image = pygame.transform.rotate(image, angle)
+        blit_pos = [0, 0]
+        blit_pos[0] = pos[0] - (rotated_image.get_width() / 2)
+        blit_pos[1] = pos[1] - (rotated_image.get_height()/ 2)
+        self.screen.blit(rotated_image, blit_pos)
 
     def update(self):
-        pygame.display.flip(self.screen)
+        pygame.display.flip()
         self.screen.fill(self.background)
